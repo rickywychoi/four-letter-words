@@ -30,6 +30,7 @@ const buttonWrapperStyle = {
 
 function App() {
   const [score, setScore] = useState(0);
+  const [passed, setPassed] = useState(0);
   const [pointer, setPointer] = useState(-1);
   const [team, setTeam] = useState("A");
 
@@ -59,15 +60,13 @@ function App() {
     if (e.target.innerText === "Success") {
       setScore(score + 1);
     }
+    if (e.target.innerText === "Pass") {
+      setPassed(passed + 1);
+    }
     setPointer(pointer + 1);
   };
 
-  const handlePass = (e) => {
-    e.preventDefault();
-    proceed(e);
-  };
-
-  const handleSuccess = (e) => {
+  const handlePassOrSuccess = (e) => {
     e.preventDefault();
     proceed(e);
   };
@@ -80,6 +79,7 @@ function App() {
   const handleReset = (e) => {
     e.preventDefault();
     setScore(0);
+    setPassed(0);
     setPointer(-1);
   };
 
@@ -107,7 +107,13 @@ function App() {
         </Button>
         <span style={scoreTextStyle}>Team: {team}</span>
         <span style={scoreTextStyle}>
-          Score: {score}/{wordsList.length}
+          <span>
+            Score: {score}/{wordsList.length}
+          </span>
+          <br />
+          <span style={{ color: "red" }}>
+            Passed: {passed}/{wordsList.length}
+          </span>
         </span>
       </span>
       <p style={wordStyle}>
@@ -127,7 +133,7 @@ function App() {
         ) : (
           <span style={buttonWrapperStyle}>
             {!isEnd && (
-              <Button variant="danger" onClick={handlePass}>
+              <Button variant="danger" onClick={handlePassOrSuccess}>
                 Pass
               </Button>
             )}
@@ -135,7 +141,7 @@ function App() {
               Reset
             </Button>
             {!isEnd && (
-              <Button variant="primary" onClick={handleSuccess}>
+              <Button variant="primary" onClick={handlePassOrSuccess}>
                 Success
               </Button>
             )}
