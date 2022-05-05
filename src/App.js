@@ -131,21 +131,19 @@ function App() {
             </Button>
           </span>
         ) : (
-          <span style={buttonWrapperStyle}>
-            {!isEnd && (
+          !isEnd && (
+            <span style={buttonWrapperStyle}>
               <Button variant="danger" onClick={handlePassOrSuccess}>
                 Pass
               </Button>
-            )}
-            <Button variant="warning" onClick={handleReset}>
-              Reset
-            </Button>
-            {!isEnd && (
+              <Button variant="warning" onClick={handleReset}>
+                Reset
+              </Button>
               <Button variant="primary" onClick={handlePassOrSuccess}>
                 Success
               </Button>
-            )}
-          </span>
+            </span>
+          )
         )}
       </>
     </div>
